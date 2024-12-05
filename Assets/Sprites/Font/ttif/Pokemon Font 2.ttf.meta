@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 25a58eb1420e6a149ae3182c9b3e80a2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 8
+  forceTextureCase: 3
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pokemon Font 2
+  fallbackFontReferences: []
+  customCharacters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,abcdefghijklmnopqrstuvwxyz0123456789\u2642\u2640!?/-\u2026\u201C\u201D\u2018\u2019"
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

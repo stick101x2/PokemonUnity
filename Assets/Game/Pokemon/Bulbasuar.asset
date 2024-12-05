@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd806103a5bfc7428a960684911a481, type: 3}
+  m_Name: Bulbasuar
+  m_EditorClassIdentifier: 
+  name: Blubasaur
+  description: "A strange seed was planted on its back at birth. The plant sprouts
+    and grows with this Pok\xE9mon."
+  front: {fileID: 1431292826, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  back: {fileID: 1780920392, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  type1: 5
+  type2: 8
+  genderThreshold: 31
+  maxHp: 45
+  attack: 49
+  defense: 49
+  spAttack: 65
+  spDefense: 65
+  speed: 45
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 90066be46e16c4244aace82462bf558a, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 7024fd5e5d49f8340be39a0956bbb01d, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: 9a9af644e0e4df14d8a303d061d52878, type: 2}
+    level: 5

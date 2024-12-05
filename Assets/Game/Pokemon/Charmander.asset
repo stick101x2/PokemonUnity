@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd806103a5bfc7428a960684911a481, type: 3}
+  m_Name: Charmander
+  m_EditorClassIdentifier: 
+  name: Charmander
+  description: 'From the time it is born, a flame burns at the tip of its tail. Its
+    life would end if the flame were to go out.
+
+'
+  front: {fileID: 1235766024, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  back: {fileID: -1076481102, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  type1: 2
+  type2: 0
+  genderThreshold: 31
+  maxHp: 39
+  attack: 52
+  defense: 43
+  spAttack: 60
+  spDefense: 50
+  speed: 65
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 7024fd5e5d49f8340be39a0956bbb01d, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 90066be46e16c4244aace82462bf558a, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 22156fbee050439468393365b4d284f2, type: 2}
+    level: 5

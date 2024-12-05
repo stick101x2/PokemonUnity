@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd806103a5bfc7428a960684911a481, type: 3}
+  m_Name: Squirtle
+  m_EditorClassIdentifier: 
+  name: Squirtle
+  description: 'When it retracts its long neck into its shell, it squirts out water
+    with vigorous force.
+
+'
+  front: {fileID: 849750736, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  back: {fileID: -939619204, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  type1: 3
+  type2: 0
+  genderThreshold: 31
+  maxHp: 44
+  attack: 48
+  defense: 65
+  spAttack: 50
+  spDefense: 64
+  speed: 43
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 90066be46e16c4244aace82462bf558a, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: c5866b9067a9d574b81473efcf7decd0, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: fe1b496e74e110f4c8a0d0cb56e9b763, type: 2}
+    level: 7
