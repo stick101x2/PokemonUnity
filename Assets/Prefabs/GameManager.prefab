@@ -50,7 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Debug: 0
   currentScene: 0
-  World: {fileID: 0}
   WorldMusic: {fileID: 11400000, guid: 4c415f221ccebfa45b87036b425925b8, type: 2}
   BattleMusic: {fileID: 11400000, guid: 3e87bda5ee493c94594833ac1c30268d, type: 2}
   playerPokemons: []
@@ -58,7 +57,7 @@ MonoBehaviour:
   currentActivePokemon: 0
   testEnemy: {fileID: 11400000, guid: ad4d3b4898576f6438793b14ba54c457, type: 2}
   TestEnemyLVL: 5
-  testPlayer: {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
+  testPlayer: {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
   TestPlayerLVL: 5
 --- !u!1 &4814972660204143186
 GameObject:
@@ -304,3 +303,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf68d5897a47a74d967228dcb99c1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicGroup: {fileID: -6724781820963787379, guid: 9850f86afecd3f543a021ef717dd089e, type: 2}
+  soundeffects: []

@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,19 +19,28 @@ public class AudioManager : MonoBehaviour
     public const string PLRCHARGE = "player_charging";
 
     public const int SOURCE_MUSIC = 0;
-    public const int SOURCE_PLAYER = 1;
-    public const int SOURCE_PLAYER2 = 2;
-    public const int SOURCE_ENEMY1 = 3;
-    public const int SOURCE_ENEMY2 = 4;
-    public const int SOURCE_ITEM = 5;
-    public const int SOURCE_EFFECT = 6;
-    public const int SOURCE_UI = 7;
-
-
+    public const int SOURCE_MISC1 = 1;
+    public const int SOURCE_MISC2 = 2;
+    public const int SOURCE_MISC3 = 3;
+    public const int SOURCE_MISC4 = 4;
+    public const int SOURCE_MISC5 = 5;
+    public const int SOURCE_UI1 = 6;
+    public const int SOURCE_UI2 = 7;
+    public AudioMixerGroup musicGroup;
+    public SoundAsset[] soundeffects;
     SoundSource[] soundSources;
     public static AudioManager instance;
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         soundSources = new SoundSource[8];
 
         for (int i = 0; i < soundSources.Length; i++)
@@ -40,14 +50,8 @@ public class AudioManager : MonoBehaviour
             soundSources[i].Setup();
             obj.transform.parent = transform;
         }
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        soundeffects = Resources.LoadAll<SoundAsset>("Sounds/SFX");
     }
     public void PlayExternal(string filename)
     {
@@ -107,6 +111,7 @@ public class AudioManager : MonoBehaviour
                 s.clip = myClip;
                 s.loopStart = start;
                 s.loopEnd = end;
+                s.group = musicGroup;
                 Play(s, SOURCE_MUSIC);
             }
         }
@@ -126,19 +131,19 @@ public class AudioManager : MonoBehaviour
     {
         source.Stop();
     }
-    /*
+    
     public SoundSource Play(string soundName, int index)
     {
-        Sound s = Array.Find(audioList.SoundEffects, sound => sound.name == soundName);
+        SoundAsset s = Array.Find(soundeffects, sound => sound.sound.name == soundName);
         if (s == null)
         {
             Debug.LogWarning("Unable to play " + (soundName) + " on SoundSource " + soundSources[index]);
             return null;
         }
         SoundSource source = soundSources[index];
-        source.Play(s);
+        source.Play(s.sound);
         return source;
-    }*/
+    }
     public SoundSource Play(Sound s, int index)
     {
         SoundSource sound = soundSources[index];
@@ -155,6 +160,7 @@ public class Sound
     public float volume = 1f;
     public double loopStart = -1;
     public double loopEnd = -1;
+    public AudioMixerGroup group;
 }
 public class SoundSource : MonoBehaviour
 {
@@ -205,8 +211,11 @@ public class SoundSource : MonoBehaviour
         loopStartSamples = (int)(s.loopStart * s.clip.frequency);
         loopEndSamples = (int)(s.loopEnd * s.clip.frequency);
         loopLengthSamples = loopEndSamples - loopStartSamples;
-        sound.volume = s.volume;
+
+        source.volume = sound.volume;
         source.clip = sound.clip;
+        source.outputAudioMixerGroup = sound.group;
+
         enabled = true;
         source.Play();
 

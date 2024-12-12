@@ -37,7 +37,7 @@ public class PokemonBase : ScriptableObject
    
 
     [SerializeField] List<LearnableMove> learnableMoves;
-
+    [SerializeField] SoundAsset cry;
     public string Name { get { return name; } }
     public string Description { get { return description; } }
     public PokemonType TYPE1 { get { return type1; } }
@@ -53,6 +53,7 @@ public class PokemonBase : ScriptableObject
 
     public Sprite FrontSprite { get { return front; } }
     public Sprite BackSprite { get { return back; } }
+    public Sound Cry { get { return cry.sound; } }
 }
 [Serializable]
 public class LearnableMove

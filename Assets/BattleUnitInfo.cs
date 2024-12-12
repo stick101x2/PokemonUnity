@@ -39,6 +39,12 @@ public class BattleUnitInfo : MonoBehaviour
         p_name.text = pokemonData.Name.ToUpper() + gender;
         lvl.text = "_" + pokemonData.Level;
     }
+    public void AnimEnter(bool player)
+    {
+        string s = player ? "p" : "e";
+        anim.Play("intro_" + s + "_enter", 0, 0);
+
+    }
     public void AnimIntro(bool player)
     {
         string s = player ? "p" : "e";

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class DialogBox : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DialogBox : MonoBehaviour
     [SerializeField] int lettersPerSecond = 1;
 
     string sampleText = "Sample Text";
+    public Vector2 textPos;
+    public GameObject cursor;
     // Start is called before the first frame update
     public void SetDialog(string dialog)
     {
@@ -41,9 +44,10 @@ public class DialogBox : MonoBehaviour
         }
     }
 
-    public IEnumerator TypeDialog(string dialog)
+    public IEnumerator TypeDialog(string dialog, bool requireInput = false)
     {
-        
+        cursor.SetActive(false);
+
         if (lettersPerSecond <= 0)
             lettersPerSecond = 1;
 
@@ -54,7 +58,28 @@ public class DialogBox : MonoBehaviour
             yield return new WaitForSeconds(1f / lettersPerSecond);
         }
 
-        
+        if(requireInput)
+        {
+            cursor.SetActive(true);
+            textPos = GetPositionOfLastLetter(textbox);
+            cursor.transform.position = textPos + new Vector2(0.5f,0);
+            yield return new WaitUntil(() => Keyboard.current.pKey.wasPressedThisFrame);
+            AudioManager.instance.Play("select",7);
+        }
+        cursor.SetActive(false);
     }
+    public Vector2 GetPositionOfLastLetter(TextMeshProUGUI tmp_text)
+    {
 
+        tmp_text.ForceMeshUpdate();
+
+        Vector3[] vertices = tmp_text.mesh.vertices;
+        TMP_CharacterInfo charInfo = tmp_text.textInfo.characterInfo[tmp_text.textInfo.characterCount - 1];
+        int vertexIndex = charInfo.vertexIndex;
+
+        Vector2 charMidTopLine = new Vector2((vertices[vertexIndex + 0].x + vertices[vertexIndex + 2].x) / 2, (charInfo.bottomLeft.y + charInfo.topLeft.y) / 2);
+        Vector3 worldPos = tmp_text.transform.TransformPoint(charMidTopLine);
+
+        return worldPos;
+    }
 }

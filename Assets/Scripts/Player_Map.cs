@@ -117,14 +117,14 @@ public class Player_Map : MonoBehaviour
 
     void TryForEncounters()
     {
-       Collider2D hit = Physics2D.OverlapCircle(transform.position, 0.25f, WorldMap.instance.GrassLayer);
+       Collider2D hit = Physics2D.OverlapCircle(transform.position, 0.25f, World.GetGrassLayer());
         if (hit != null)
         {
             int chance = Random.Range(0, 256);
             if (chance < 200)
             {
                 DisableMovement();
-                GameManager.instance.EncouterPokemon();
+                GameManager.EncouterPokemon();
                 
             } 
         }

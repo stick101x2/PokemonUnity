@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ffc554204d04c674ba86fc2edd3f9981
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 8
+  forceTextureCase: 3
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pokemon GBA Font 1
+  fallbackFontReferences: []
+  customCharacters: "ABCDEF.GHIJKL,MNOPQRSTUVWXYZabcdef\u201Cghijkl\u201Dmnopqrstuvwxyz01234\u2018\u201956789-'!?\u2642\u2640/\u2026\""
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

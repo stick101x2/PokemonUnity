@@ -16,7 +16,8 @@ public class MouseUiHandler : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        targetSize.x = UIcam.targetTexture.width;
+        targetSize.y = UIcam.targetTexture.height;
     }
 
     // Update is called once per frame
@@ -40,8 +41,8 @@ public class MouseUiHandler : MonoBehaviour
             bool mouseIsOver = RectTransformUtility.RectangleContainsScreenPoint(rects[i], mousePosition, UIcam);
             if (mouseIsOver && EventSystem.current.currentSelectedGameObject != g)
             {
-                EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(g);
+                BattleUIActionOption option = rects[i].GetComponent<BattleUIActionOption>();
+                option.HighLight();
 
             }
         }

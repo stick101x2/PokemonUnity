@@ -16,6 +16,7 @@ public class BattleUIActions : Menu
         selected = actions[selectedAction];
         moved = false;
         gameObject.SetActive(true);
+        selected.HighLight();
         player = p;
     }
     public virtual void Close()
@@ -43,28 +44,44 @@ public class BattleUIActions : Menu
                 if (dir.x > 0.5)
                 {
                     if(n.neighborRight != null)
+                    {  
                         selectedAction = actions.IndexOf(n.neighborRight);
+                        AudioManager.instance.Play("select", 7);
+                    }
                 }
                 else if (dir.x < -0.5)
                 {
                     if (n.neighborLeft != null)
+                    {    
                         selectedAction = actions.IndexOf(n.neighborLeft);
+                        AudioManager.instance.Play("select", 7);
+                    }
                 }
                 else if (dir.y > 0.5)
                 {
                     if (n.neighborTop != null)
+                    {
                         selectedAction = actions.IndexOf(n.neighborTop);
+                        AudioManager.instance.Play("select", 7);
+                    }
                 }
                 else if (dir.y < -0.5)
                 {
                     if (n.neighborBottom != null)
+                    {
                         selectedAction = actions.IndexOf(n.neighborBottom);
+                        AudioManager.instance.Play("select", 7);
+                    }
                 }
 
                 return;
             }
-            if(n.gameObject.activeSelf)
+            if (n.gameObject.activeSelf)
+            {
                 selectedAction = actions.IndexOf(n);
+                AudioManager.instance.Play("select", 7);
+
+            }
         }
     }
     void Move()
@@ -78,7 +95,6 @@ public class BattleUIActions : Menu
         if(UserInput.GetDpad().magnitude >0.1f)
         {
             moved = true;
-
             if (UserInput.GetDpad().x > 0.5f)
             {
                 Navigate(selected.neighborRight);

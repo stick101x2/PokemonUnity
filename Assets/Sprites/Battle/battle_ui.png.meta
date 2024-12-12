@@ -3,7 +3,7 @@ guid: 9abb403ceba57f04088b6c83481ab985
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -25,7 +25,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -77,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -558,32 +561,32 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      battle_ui_4: -391074012
-      battle_ui_5: 416142681
-      battle_ui_1: 1176475042
-      battle_ui_14: -1274820785
-      battle_ui_7: 1664545155
       battle_ui_0: 31648964
-      battle_ui_9: -1240987488
-      battle_ui_24: -2130643315
-      battle_ui_11: 1274726261
-      battle_ui_17: 1960121896
-      battle_ui_19: -809192115
+      battle_ui_1: 1176475042
       battle_ui_10: 1703950336
+      battle_ui_11: 1274726261
+      battle_ui_12: -781755018
+      battle_ui_13: 672716534
+      battle_ui_14: -1274820785
       battle_ui_15: -1915379677
-      battle_ui_23: 1694871632
-      battle_ui_6: -1136814816
+      battle_ui_16: 1129520429
+      battle_ui_17: 1960121896
+      battle_ui_18: 2097215956
+      battle_ui_19: -809192115
+      battle_ui_2: 1266205733
       battle_ui_20: -968501880
       battle_ui_21: -49468232
       battle_ui_22: 1029962002
-      battle_ui_16: 1129520429
-      battle_ui_8: 336350273
+      battle_ui_23: 1694871632
+      battle_ui_24: -2130643315
       battle_ui_3: -1763259537
-      battle_ui_13: 672716534
-      battle_ui_2: 1266205733
-      battle_ui_12: -781755018
-      battle_ui_18: 2097215956
-  spritePackingTag: 
+      battle_ui_4: -391074012
+      battle_ui_5: 416142681
+      battle_ui_6: -1136814816
+      battle_ui_7: 1664545155
+      battle_ui_8: 336350273
+      battle_ui_9: -1240987488
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 

@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public bool Debug;
     public static GameManager instance;
     public SceneType currentScene;
-    public GameObject World;
 
     public SoundAsset WorldMusic;
     public SoundAsset BattleMusic;
@@ -45,14 +44,14 @@ public class GameManager : MonoBehaviour
 
 
         SceneManager.sceneLoaded += OnSceneChange;
+        SceneManager.sceneUnloaded += OnSceneChange;
 
-       
     }
     private void Start()
     {
-        
-
-
+        PokemonInstance p = CreateNewPokemonInstance(testPlayer, TestPlayerLVL);
+        p.SetAllyStatus(true);
+        playerPokemons.Add(p);
     }
 
     public PokemonInstance CreateNewPokemonInstance(PokemonBase pBase,int lvl)
@@ -66,11 +65,19 @@ public class GameManager : MonoBehaviour
     }
    
 
-    public void EncouterPokemon()
+    public static void EncouterPokemon()
     {
+        int rng = Random.Range(0, 256);
+        if(rng < 127) World.DoBattleTransition(World.BattleTransition.WildWeak);
+        else World.DoBattleTransition(World.BattleTransition.WildStrong);
         AudioManager.instance.Stop(AudioManager.SOURCE_MUSIC);
-        AudioManager.instance.PlayExternal(BattleMusic.sound.name);
-        StartCoroutine(LoadBattleScene());
+        AudioManager.instance.PlayExternal(instance.BattleMusic.sound.name);
+        instance.StartCoroutine(instance.LoadBattleScene());
+    }
+    public static void ExitEncouter()
+    {
+        instance.StartCoroutine(instance.LoadWorldScene());
+
     }
     //Called before OnStart and after OnEnable
     void OnSceneChange(Scene newScene, LoadSceneMode sceneLoadMode)
@@ -99,20 +106,31 @@ public class GameManager : MonoBehaviour
         {
 
             AudioManager.instance.PlayExternal(WorldMusic.sound.name);
-            PokemonInstance p = CreateNewPokemonInstance(testPlayer, TestPlayerLVL);
-            p.SetAllyStatus(true);
-            playerPokemons.Add(p);
+            World.Fade(true);
+            
         }
 
         Debug = false;
     }
+    void OnSceneChange(Scene newScene)
+    {
+        AudioManager.instance.PlayExternal(WorldMusic.sound.name);
+        World.Fade(true);
+    }
+    public IEnumerator LoadWorldScene()
+    {
 
+        yield return new WaitForSeconds(1f);
+        SceneManager.UnloadSceneAsync(BATTLE_SCENE);
+        currentScene = SceneType.World;
+        World.SetActive(true);
+    }
     public IEnumerator LoadBattleScene()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         World.SetActive(false);
         currentScene = SceneType.Battle;
-        SceneManager.LoadScene(BATTLE_SCENE,LoadSceneMode.Additive);
+        SceneManager.LoadScene(1,LoadSceneMode.Additive);
     }
 }
 

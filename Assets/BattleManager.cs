@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum BattleState
 {
@@ -20,6 +22,7 @@ public enum BattleMenu
 }
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField] Animator arena;
     [SerializeField] Animator screenEffects;
     [SerializeField] MouseUiHandler mouseHandle;
     [SerializeField] BattleUnitInfo playerUI;
@@ -55,7 +58,9 @@ public class BattleManager : MonoBehaviour
         enemyUnit.Animate("wait");
         playerUnit.UI.AnimIntro(true);
         enemyUnit.UI.AnimIntro(false);
+        playerUnit.Animate("inactive");
 
+        messegeBox.SetDialog("");
         screenEffects.Play("open");
 
         StartCoroutine(Battle());
@@ -64,7 +69,18 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator Battle()
     {
-        yield return messegeBox.TypeDialog($"A wild {enemyUnit.pokemon.Data().Name} has appeared!");
+        yield return new WaitForSeconds(2f);
+        enemyUnit.UI.AnimEnter(false);
+        AudioManager.instance.Play(enemyUnit.pokemon.Data().Cry, 1);
+        yield return messegeBox.TypeDialog($"A wild {enemyUnit.pokemon.Data().Name.ToUpper()} appeared!", true);
+        playerUnit.UI.AnimEnter(true);
+        arena.Play("player_enter");
+        yield return messegeBox.TypeDialog($"Go!    {playerUnit.pokemon.Data().Name.ToUpper()}!");
+        yield return new WaitForSeconds(1.1f);
+        arena.Play("player_poke_enter");
+        yield return new WaitForEndOfFrame();
+        playerUnit.Animate("spawn");
+        AudioManager.instance.Play(playerUnit.pokemon.Data().Cry, 1);
         yield return new WaitForSeconds(1f);
         PlayerAct();
     }
@@ -100,7 +116,9 @@ public class BattleManager : MonoBehaviour
             defense.UI.AnimFaint();
             yield return new WaitForSeconds(0.5f);
             yield return messegeBox.TypeDialog($"{defense.pokemon.Data().Name} fainted!");
-            
+            yield return new WaitForSeconds(1f);
+            screenEffects.Play("fade_out");
+            GameManager.ExitEncouter();
             yield break;
         }
 

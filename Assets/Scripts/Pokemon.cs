@@ -70,6 +70,7 @@ public class Pokemon
     public string Name { get { return name; } }
     public PokemonType Type1 { get { return Base.TYPE1; } }
     public PokemonType Type2 { get { return Base.TYPE2; } }
+    public Sound Cry { get { return Base.Cry; } }
 
     public Damage TakeDamage(Move move, Pokemon attacker)
     {
