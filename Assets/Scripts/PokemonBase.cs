@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Pokemon", menuName = "PokemonUE/Pokemon")]
-public class PokemonBase : ScriptableObject
+public class PokemonBase : ScriptableObject //Species
 {
     [SerializeField] string name;
 
     [TextArea]
     [SerializeField] string description;
-
+    [SerializeField] Palette paletteNormal;
+    [SerializeField] Palette paletteShiny;
     [SerializeField] Sprite front;
     [SerializeField] Sprite back;
-
+    [SerializeField] Sprite[] icons;
     [SerializeField] PokemonType type1;
     [SerializeField] PokemonType type2;
     [Range(0,255)] 
@@ -50,9 +51,11 @@ public class PokemonBase : ScriptableObject
     public int Speed { get { return speed; } }
     public int GenderThreshold { get { return genderThreshold; } }
     public List<LearnableMove> LearnableMoves { get { return learnableMoves; } }
-
+    public Palette ShinyPalette { get { return paletteShiny; } }
+    public Palette NormalPalette { get { return paletteNormal; } }
     public Sprite FrontSprite { get { return front; } }
     public Sprite BackSprite { get { return back; } }
+    public Sprite[] IconSprites { get { return icons; } }
     public Sound Cry { get { return cry.sound; } }
 }
 [Serializable]

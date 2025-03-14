@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Pokemon
+public class Pokemon //Data
 {
     [SerializeField] PokemonBase pBase;
     [SerializeField] string name;
     [SerializeField] int level;
     [SerializeField] int hP;
     [SerializeField] List<Move> moves;
-    [SerializeField] public int gender; //0 == Male, 1 == Female,-1 == Genderless
-    [SerializeField] public int personality;
-   
+    [SerializeField] int gender; //0 == Male, 1 == Female,-1 == Genderless
+    [SerializeField] int personality;
+    [Space(10)]
+    [SerializeField] byte lowWordLowByte;
+    [SerializeField] byte lowWordHighByte;
+    [SerializeField] byte highWordLowByte;
+    [SerializeField] byte highWordHighByte;
+
     public Pokemon(PokemonBase _base, int pLevel)
     {
         pBase = _base;
@@ -22,9 +27,13 @@ public class Pokemon
         moves = new List<Move>();
 
         personality = Random.Range(0, int.MaxValue);
-        byte lower8 = (byte)personality;
+        
+        lowWordLowByte = (byte)(personality & 0xFF);
+        lowWordHighByte = (byte)((personality >> 8) & 0xFF);
+        highWordLowByte = (byte)((personality >> 16) & 0xFF);
+        highWordHighByte = (byte)((personality >> 24) & 0xFF);
 
-        gender = GetGender(lower8);
+        gender = GetGender(lowWordLowByte);
 
         foreach (var move in pBase.LearnableMoves)
         {
@@ -58,7 +67,7 @@ public class Pokemon
 
     public PokemonBase Base { get { return pBase; } }
     public int Level { get { return level; } }
-    public int HP { get { return hP; } }
+    public int HP { get { return hP; } } 
     public List<Move> Moves { get { return moves; } }
     public int MaxHP { get { return Mathf.FloorToInt((pBase.MaxHP) * level / 100 + 5 + 10); } }
     public int Attack { get { return Mathf.FloorToInt(Mathf.Floor(2 * pBase.Attack)* level / 100 + 5); } }
@@ -80,7 +89,7 @@ public class Pokemon
             Damage damageInfo = new Damage()
             {
                 damageDealt = 0,
-                isDead = false,
+                fainted = false,
                 criticalHit = false,
                 effective = 0
             };
@@ -106,14 +115,17 @@ public class Pokemon
         Damage DamageInfo = new Damage()
         {
             damageDealt = damage,
-            isDead = HP <= 0,
+            fainted = HP <= 0,
             criticalHit = critical > 1f,
             effective = type
         };
 
         return DamageInfo;
     }
-
+    public void Heal()
+    {
+        hP = MaxHP;
+    }
     public Move GetRandomMove()
     {
         return moves[Random.Range(0, moves.Count)];
@@ -125,7 +137,7 @@ public class Pokemon
 public struct Damage
 {
     public int damageDealt;
-    public bool isDead;
+    public bool fainted;
     public bool criticalHit;
     public float effective; //-1 == NO_EFFECT, 0 == NORMAL
 }

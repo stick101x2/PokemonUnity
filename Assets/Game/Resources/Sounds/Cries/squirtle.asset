@@ -16,6 +16,7 @@ MonoBehaviour:
     name: bulbasaur
     clip: {fileID: 8300000, guid: 4d466cc580d8e6f43a3e8bb28c2c34d0, type: 3}
     volume: 1
+    pitch: 1
     loopStart: -1
     loopEnd: -1
     group: {fileID: 540012980002659272, guid: 9850f86afecd3f543a021ef717dd089e, type: 2}

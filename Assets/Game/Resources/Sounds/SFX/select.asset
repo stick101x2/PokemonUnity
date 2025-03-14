@@ -15,7 +15,7 @@ MonoBehaviour:
   sound:
     name: select
     clip: {fileID: 8300000, guid: 2b65f97247bf1d941b88bce883be06a1, type: 3}
-    volume: 1
+    volume: 0.5
     loopStart: -1
     loopEnd: -1
     group: {fileID: 4672806829047023263, guid: 9850f86afecd3f543a021ef717dd089e, type: 2}

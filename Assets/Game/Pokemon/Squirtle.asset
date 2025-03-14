@@ -17,8 +17,13 @@ MonoBehaviour:
     with vigorous force.
 
 '
-  front: {fileID: 849750736, guid: d766629330b53e042b0a121c39b94008, type: 3}
-  back: {fileID: -939619204, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  paletteNormal: {fileID: 11400000, guid: 08eb8bcf3f5a16a4ab494546bbf32990, type: 2}
+  paletteShiny: {fileID: 11400000, guid: 5c338add9d6efc14188513454aa35844, type: 2}
+  front: {fileID: 21300000, guid: f1439d9961104dd4fa53236b05da649d, type: 3}
+  back: {fileID: 21300000, guid: 2ab556a9f7260f64aaf4dfabd7532367, type: 3}
+  icons:
+  - {fileID: -1857409906, guid: e878bb2a397db944b8591e61ff7ff7a6, type: 3}
+  - {fileID: -570927926, guid: e878bb2a397db944b8591e61ff7ff7a6, type: 3}
   type1: 3
   type2: 0
   genderThreshold: 31

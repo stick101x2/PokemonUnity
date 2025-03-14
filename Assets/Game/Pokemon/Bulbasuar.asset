@@ -15,8 +15,13 @@ MonoBehaviour:
   name: Blubasaur
   description: "A strange seed was planted on its back at birth. The plant sprouts
     and grows with this Pok\xE9mon."
-  front: {fileID: 1431292826, guid: d766629330b53e042b0a121c39b94008, type: 3}
-  back: {fileID: 1780920392, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  paletteNormal: {fileID: 11400000, guid: 89cb7192de9bdbf47a1721a7b8858de0, type: 2}
+  paletteShiny: {fileID: 11400000, guid: b356d40ef82b9984fbddb1ed757f19c5, type: 2}
+  front: {fileID: 21300000, guid: fbc79b8bebd91f949a98c998d587c6f5, type: 3}
+  back: {fileID: 21300000, guid: 88edde9483359cb4182102f4cb4db16e, type: 3}
+  icons:
+  - {fileID: 1060136007, guid: 6db8be0f2351fed49a31136a7d5bc71e, type: 3}
+  - {fileID: -224925983, guid: 6db8be0f2351fed49a31136a7d5bc71e, type: 3}
   type1: 5
   type2: 8
   genderThreshold: 31

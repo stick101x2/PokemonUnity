@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 613a048636e9c394197e78cda751118f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ee765253598d874b94200a99ab1087b, type: 3}
   m_Name: Vinewhip
   m_EditorClassIdentifier: 
   name: Vinewhip

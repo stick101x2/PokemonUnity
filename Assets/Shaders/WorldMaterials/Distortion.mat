@@ -78,7 +78,7 @@ Material:
     - _ModifierY: 1
     m_Colors:
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _OffsetX: {r: 0, g: 9, b: 0, a: 0}
+    - _OffsetX: {r: 0, g: 0, b: 0, a: 0}
     - _OffsetY: {r: 0, g: 0, b: 0, a: 0}
     - _Size: {r: 1, g: 1, b: 0, a: 0}
     - _SizeX: {r: 1, g: 1, b: 0, a: 0}

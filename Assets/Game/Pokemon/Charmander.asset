@@ -17,8 +17,13 @@ MonoBehaviour:
     life would end if the flame were to go out.
 
 '
-  front: {fileID: 1235766024, guid: d766629330b53e042b0a121c39b94008, type: 3}
-  back: {fileID: -1076481102, guid: d766629330b53e042b0a121c39b94008, type: 3}
+  paletteNormal: {fileID: 11400000, guid: ff7380ed5fa5baf4cad04e02c58f9a7c, type: 2}
+  paletteShiny: {fileID: 11400000, guid: 38389abacc1147c469292dcbb53552f5, type: 2}
+  front: {fileID: 21300000, guid: efdba5897959f084cb83276ae17ea6dc, type: 3}
+  back: {fileID: 21300000, guid: a8ac36085c549874ca00a9228da305db, type: 3}
+  icons:
+  - {fileID: -1573852072, guid: 1a2a2958d15e3254a9a6e9ed8718295d, type: 3}
+  - {fileID: -1462441487, guid: 1a2a2958d15e3254a9a6e9ed8718295d, type: 3}
   type1: 2
   type2: 0
   genderThreshold: 31

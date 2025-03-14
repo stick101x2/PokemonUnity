@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ball_open
   m_EditorClassIdentifier: 
   sound:
-    name: select
-    clip: {fileID: 8300000, guid: 2b65f97247bf1d941b88bce883be06a1, type: 3}
+    name: ball_open
+    clip: {fileID: 8300000, guid: ffa43b02279176a4aaba297150779ded, type: 3}
     volume: 1
     loopStart: -1
     loopEnd: -1

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: RSE_Wild_Battle
   m_EditorClassIdentifier: 
   sound:
-    name: rse_wild_battle
+    name: rse_wild_battle_remaster
     clip: {fileID: 0}
     volume: 1
+    pitch: 1
     loopStart: -1
     loopEnd: -1
     group: {fileID: -6724781820963787379, guid: 9850f86afecd3f543a021ef717dd089e, type: 2}
