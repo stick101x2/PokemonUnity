@@ -23,12 +23,16 @@ public class PokemonInstance : MonoBehaviour //Pokemon GameObject
         return pokemon;
     }
 
-    public Sprite GetBattleSprite()
+    public Sprite GetBattleSprite(int spriteIndex = 0)
     {
         if (isPlayerPokemon)
-            return pokemon.Base.BackSprite;
+        {
+            return pokemon.Base.BackSprites[spriteIndex];
+        }
         else
-            return pokemon.Base.FrontSprite;
+        {
+            return pokemon.Base.FrontSprites[spriteIndex];
+        }
     }
 
     public void SetAllyStatus(bool ally)

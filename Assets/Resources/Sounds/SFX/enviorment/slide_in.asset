@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344df09f8c74a454d8b41852ca690453, type: 3}
+  m_Name: slide_in
+  m_EditorClassIdentifier: 
+  sound:
+    name: slide_in
+    clip: {fileID: 8300000, guid: 19a631519c74f404e877ee94b66f9522, type: 3}
+    volume: 0.75
+    pitch: 1
+    loopStart: -1
+    loopEnd: -1
+    group: {fileID: 0}

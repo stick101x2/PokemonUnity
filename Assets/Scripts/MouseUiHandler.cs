@@ -41,7 +41,7 @@ public class MouseUiHandler : MonoBehaviour
             bool mouseIsOver = RectTransformUtility.RectangleContainsScreenPoint(rects[i], mousePosition, UIcam);
             if (mouseIsOver && EventSystem.current.currentSelectedGameObject != g)
             {
-                BattleUIActionOption option = rects[i].GetComponent<BattleUIActionOption>();
+                MenuOption option = rects[i].GetComponent<MenuOption>();
                 option.HighLight();
 
             }

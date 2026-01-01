@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 2f7ade686ed0cec48b9d9d7dfb8f8c1c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: 3
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PKMN Gen 4 White Font
+  fallbackFontReferences: []
+  customCharacters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ&abcdefghijklmnopqrstuvwxyz~$\xA1\xBF!?,.\u2026@/\u2018\u2019\u201C\u201D_{}()\u2642\u2640+-*#=:0123456789"
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

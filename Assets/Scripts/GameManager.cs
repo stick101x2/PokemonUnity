@@ -21,7 +21,15 @@ public struct Constants
 public class GameManager : MonoBehaviour
 {
     public bool debugging;
+    
+
+    public int forceEnemyIndex = -1;
+    public int forcePlayerIndex = -1;
+    public float playerActDelay = 1f;
+
+    public static bool inMenu;
     public static GameManager instance;
+
     public SceneType currentScene;
     public Area currentArea;
     public SoundAsset WorldMusic;
@@ -37,8 +45,10 @@ public class GameManager : MonoBehaviour
     public PokemonBase[] testPlayer;
     public int TestPlayerLVL;
 
+    
+
     Transform pokemonInstanceParent;
-    Player_Map playerMap;
+  //  Player_Map playerMap;
     public BattleManager battleManager { get; private set; }
     public MenuManager menuManager { get; private set; }
     // Start is called before the first frame update
@@ -60,19 +70,55 @@ public class GameManager : MonoBehaviour
     }
     private void OnEnable()
     {        
-        playerMap = FindObjectOfType<Player_Map>();
+        //playerMap = FindObjectOfType<Player_Map>();
+
         pokemonInstanceParent = transform.Find("Pokemon");
-        PokemonInstance p1 = CreateNewPokemonInstance(testPlayer[0], TestPlayerLVL);
-        PokemonInstance p2 = CreateNewPokemonInstance(testPlayer[1], TestPlayerLVL);
-        PokemonInstance p3 = CreateNewPokemonInstance(testPlayer[2], TestPlayerLVL);
+
+        List<int> ranList = new List<int>() { 0,1,2};
+
+        int rand = Random.Range(0, ranList.Count);
+        int pPoke = ranList[rand];
+
+        if (forcePlayerIndex > -1)
+            pPoke = forcePlayerIndex;
+
+        PokemonInstance p1 = CreateNewPokemonInstance(testPlayer[pPoke], TestPlayerLVL);
+        ranList.Remove(rand);
+
+        rand = Random.Range(0, ranList.Count);
+        pPoke = ranList[rand];
+
+        PokemonInstance p2 = CreateNewPokemonInstance(testPlayer[pPoke], TestPlayerLVL);
+        ranList.Remove(rand);
+
+        rand = Random.Range(0, ranList.Count);
+        pPoke = ranList[rand];
+
+        PokemonInstance p3 = CreateNewPokemonInstance(testPlayer[pPoke], TestPlayerLVL);
+        ranList.Remove(rand);
+
+
         p1.SetAllyStatus(true);
         p2.SetAllyStatus(true);
         p3.SetAllyStatus(true);
+
+
         playerPokemons.Add(p1);
         playerPokemons.Add(p2);
         playerPokemons.Add(p3);
     }
-
+    private void Update()
+    {
+        if(UnityEngine.Input.GetKeyDown(KeyCode.T))
+        {
+            ExitEncouter();
+        }
+        if (UnityEngine.Input.GetKeyDown(KeyCode.X))
+        {
+            EncouterPokemon();
+        }
+        
+    }
     //Called before OnStart and after OnEnable
     //On Scene Loaded
     void OnSceneChange(Scene newScene, LoadSceneMode sceneLoadMode)
@@ -81,15 +127,34 @@ public class GameManager : MonoBehaviour
         {
             if(debugging)
             {
+                
+
+                for (int i = 0; i < 3; i++)
+                {
+                    int ran = Random.Range(0, 3);
+                    int ran2 = Random.Range(0, 11);
+                    int ran3 = Random.Range(1, 3);
+
+                    if (forcePlayerIndex > -1)
+                        ran = forceEnemyIndex;
+
+                    PokemonInstance inst = CreateNewPokemonInstance(testPlayer[ran], ran2 / ran3 + 1);
+                    enemyPokemons.Add(inst);
+                }
+               
+
                 AudioManager.instance.PlayExternal(BattleMusic.sound.name);               
             }
 
             battleManager = FindObjectOfType<BattleManager>();
-            battleManager.SetupBattle();
+            BattleManager.instance = battleManager;
+            battleManager.SetupBattle(1);
 
         }
         else if (currentScene == SceneType.Menu)
         {
+            //screenEffects.Play("open");
+
             menuManager = FindObjectOfType<MenuManager>();
             menuManager.SetupMenu(MenuState.POKEMON);
         }
@@ -97,11 +162,8 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.instance.PlayExternal(WorldMusic.sound.name);
             World.Fade(true);
-            playerMap.canMove = true;
+            //playerMap.canMove = true;
         }
-        Debug.Log("enter scene");
-
-        debugging = false;
     }
     //On Scene UnLoaded
 
@@ -111,7 +173,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.PlayExternal(WorldMusic.sound.name);
         World.Fade(true);
         playerPokemons[0].Data().Heal();
-        playerMap.canMove = true;
+        //playerMap.canMove = true;
     }
     static void RemovePokemonInstance(PokemonInstance instance)
     {
@@ -127,24 +189,40 @@ public class GameManager : MonoBehaviour
         return pInstance;
     }
 
+    public static void OpenMenuScene()
+    {
+        World.Fade(false);
+        instance.StartCoroutine(instance.LoadMenuScene());
 
+    }
     public static void EncouterPokemon()
     {
-        int rng = Random.Range(0, 256);
-        if (rng < 127) World.DoBattleTransition(World.BattleTransition.WildWeak);
-        else World.DoBattleTransition(World.BattleTransition.WildStrong);
-
         AudioManager.instance.Stop(Constants.MUSIC);
         AudioManager.instance.PlayExternal(instance.BattleMusic.sound.name);
 
         PokemonEncounter encounter = instance.currentArea.encounters.GetPokemon();
-        PokemonInstance inst = instance.CreateNewPokemonInstance(encounter.pokemon, encounter.GetLevel());
+
+        PokemonBase pkmn = encounter.pokemon;
+        int lvl = encounter.GetLevel();
+
+        if (lvl < instance.playerPokemons[0].Data().Level) World.DoBattleTransition(World.BattleTransition.WildWeak);
+        else World.DoBattleTransition(World.BattleTransition.WildStrong);
+
+        PokemonInstance inst = instance.CreateNewPokemonInstance(pkmn, lvl);
         instance.enemyPokemons.Add(inst);
+
+
 
         instance.StartCoroutine(instance.LoadBattleScene());
     }
     public static void ExitEncouter()
     {
+        if(instance.debugging)
+        {
+            SceneManager.LoadScene(1);
+            return;
+        }
+
         foreach (var inst in instance.enemyPokemons)
         {           
             RemovePokemonInstance(inst);
@@ -167,6 +245,13 @@ public class GameManager : MonoBehaviour
         World.SetActive(false);
         currentScene = SceneType.Battle;
         SceneManager.LoadScene(1,LoadSceneMode.Additive);
+    }
+    public IEnumerator LoadMenuScene()
+    {
+        yield return new WaitForSeconds(2f);
+        World.SetActive(false);
+        currentScene = SceneType.Menu;
+        SceneManager.LoadScene(2, LoadSceneMode.Additive);
     }
 }
 

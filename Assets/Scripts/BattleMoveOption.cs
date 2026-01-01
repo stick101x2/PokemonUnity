@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class BattleMoveOption : BattleUIActionOption
+public class BattleMoveOption : MenuOption
 {
     [SerializeField] Move move;
     BattleMoveMenu menu;
@@ -14,7 +14,7 @@ public class BattleMoveOption : BattleUIActionOption
     {
         move = sMove;
         text.text = move.Base.Name;
-        gameObject.name = move.Base.Name;
+        //gameObject.name = move.Base.Name;
         setup = true;
         index = sindex;
     }
@@ -23,7 +23,7 @@ public class BattleMoveOption : BattleUIActionOption
         move = null;
         setup = false;
         text.text = "-";
-        gameObject.name = "-";
+        //gameObject.name = "-";
     }
     public Move GetMove()
     {

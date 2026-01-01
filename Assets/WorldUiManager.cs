@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class WorldUiManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    MainMenu menu;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        menu = GetComponentInChildren<MainMenu>(true);
+    }
+    private void Update()
+    {
+        if(Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            GameManager.inMenu = !GameManager.inMenu;
+            if(GameManager.inMenu) menu.Open();
+            else menu.Close();  
+        }
     }
 }

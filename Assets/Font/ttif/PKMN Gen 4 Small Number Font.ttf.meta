@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c3c5f6d8ccaae72498810baef35cbd81
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: 3
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PKMN Gen 4 Small Number Font
+  fallbackFontReferences: []
+  customCharacters: 0123456789
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

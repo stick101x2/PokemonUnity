@@ -1,32 +1,47 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleUnit : MonoBehaviour
 {
-    public PokemonInstance pokemon { get; set; }
+    [ShowInInspector]public PokemonInstance pokemon { get; private set; }
     public BattleUnitInfo UI { get; set; }
 
-    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] SpriteHandler sprite;
+    [SerializeField] SpriteRenderer status_sprite;
+    [SerializeField] SpriteMask mask;
 
+    public int SpeedScore;
+
+    public Move moveToUse;
+    public BattleUnit unitToTarget;
     Animator anim;
-    private void Awake()
+    public void Setup(BattleUnitInfo UI, PokemonInstance pokemon,Vector3 position)
     {
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        gameObject.SetActive(true);
+
+        if (!sprite) sprite = GetComponentInChildren<SpriteHandler>();
         anim = GetComponent<Animator>();
-    }
-    public void Setup(BattleUnitInfo UI, PokemonInstance pokemon)
-    {
+
+        transform.localPosition = position;
+
         this.UI = UI;
         this.pokemon = pokemon;
 
-        sprite.sprite = pokemon.GetBattleSprite();
-        Material mat = sprite.material;
-        mat.SetTexture("_PaletteIn", pokemon.Data().Base.NormalPalette.palette);
-        pokemon.Data().Base.NormalPalette.ApplyPaletteToMaterial(mat);
+        PokemonBase pkmnData = pokemon.Data().Base;
+
+        Palette palette = pokemon.IsAlly() ? pkmnData.ShinyPalette : pkmnData.NormalPalette;
+        Sprite[] sprites = pokemon.IsAlly() ? pkmnData.BackSprites : pkmnData.FrontSprites;
+        sprite.Setup(sprites, palette, pkmnData.Animation);
+        sprite.ApplyPalette(pkmnData.NormalPalette);
     }
 
-  
+    public void ChangeAttackModifier(int amount)
+    {
+        pokemon.Data().Modifiers.ChangeAttackStage(amount);
+    }
 
     public Damage DealDamage(Move move, Pokemon attacker)
     {
@@ -50,9 +65,30 @@ public class BattleUnit : MonoBehaviour
         }
 
     }
-
+    public void SetStatusSprite(Sprite statusSprite)
+    {
+        status_sprite.sprite = statusSprite;
+    }
     public void Animate(string animation)
     {
         anim.Play(animation, 0, 0);
+    }
+
+    public void PlayPokemonAnimation()
+    {
+        sprite.PlayAnimation();
+    }
+    public int GetSpeed()
+    {
+        return pokemon.Data().Speed;
+    }
+    public Pokemon GetPokemon()
+    {
+        return pokemon.Data();
+    }
+
+    public PokemonBase GetBasePokemonData()
+    {
+        return pokemon.Data().Base;
     }
 }

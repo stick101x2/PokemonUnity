@@ -1,35 +1,55 @@
-using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Menu : MonoBehaviour
-{
-    public bool allowsSkips = true;
-    [Space(5)]
-    public List<RectTransform> items;
-    public List<BattleUIActionOption> actions;
 
-    protected int selectedAction;
-    protected BattleUIActionOption selected;
+
+public class Menu : SerializedMonoBehaviour
+{
+    [TableMatrix(HorizontalTitle = "Menu Layout")]
+    [SerializeField] string[,] LabledTable = new string[2, 2];
+
+    [Space(5)]
+    [SerializeField] protected List<RectTransform> items;
+    [SerializeField] protected List<MenuOption> actions;
+    [SerializeField] protected GameObject gameObjectToActivate;
+
+    protected int selectedActionX;
+    protected int selectedActionY;
+
+    protected MenuOption selected;
     protected bool moved;
+
+    public UiSound menuNavigationSound;
+    public List<RectTransform> MenuItems { get { return items; } }
+    public List<MenuOption> MenuActions { get { return actions; } }
+
+    int tableLengthX;
+    int tableLengthY;
     public virtual void Open()
     {
-        selectedAction = 0;
-        selected = actions[selectedAction];
+        SelectOptionInTable(selectedActionX, selectedActionY);
+
         moved = false;
-        gameObject.SetActive(true);
+
+        SetActiveState(true);
         selected.HighLight();
     }
     public virtual void Close()
     {
-        selectedAction = 0;
-        selected = actions[selectedAction];
+        SelectOptionInTable(selectedActionX, selectedActionY);
+
         moved = false;
-        gameObject.SetActive(false);     
+        SetActiveState(false);
     }
+   
     public virtual void Update()
     {
+        if (BattleManager.instance != null && BattleManager.instance.GetMenu() == BattleMenu.POKE_SELECT)
+            return;
+
         Move();
         if (Keyboard.current.pKey.wasPressedThisFrame)
         {
@@ -37,160 +57,222 @@ public class Menu : MonoBehaviour
             {
                 if (actions[i].IsSelected())
                 {
-                    actions[selectedAction].Press();
+                    actions[i].Press();
                 }
             }
-
         }
     }
-    public void NavigateSkip(BattleUIActionOption neighbor, Vector2 dir)
+    public void ChangeLableInTable(string lableToFind,string nameToSetLable)
     {
-        int selected = -1;
-        // JoyX right
-        if (dir.x > 0)
+        for (int row = 0; row < LabledTable.GetLength(0); row++)
         {
-            if (neighbor.neighborRight != null && neighbor.neighborRight.GetActive())
+            for (int col = 0; col < LabledTable.GetLength(1); col++)
             {
-                selectedAction = actions.IndexOf(neighbor.neighborRight);
-                selected = selectedAction;
-            }
-            else if (neighbor.neighborBottom != null && neighbor.neighborBottom.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborBottom);
-                selected = selectedAction;
-
-            }
-            else if (neighbor.neighborTop != null && neighbor.neighborTop.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborTop);
-                selected = selectedAction;
-
+                if (LabledTable[row,col] == lableToFind)
+                {
+                    LabledTable[row, col] = nameToSetLable;
+                    return;
+                }
             }
         }
-        // JoyX left
-        if (dir.x < 0)
-        {
-            if (neighbor.neighborLeft != null && neighbor.neighborLeft.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborLeft);
-                selected = selectedAction;
-            }
-            else if (neighbor.neighborTop != null && neighbor.neighborTop.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborTop);
-                selected = selectedAction;
-
-            }
-            else if (neighbor.neighborBottom != null && neighbor.neighborBottom.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborBottom);
-                selected = selectedAction;
-
-            }
-        }
-        // JoyX Top
-        if (dir.y > 0)
-        {
-            if (neighbor.neighborTop != null && neighbor.neighborTop.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborTop);
-                selected = selectedAction;
-            }
-            else if (neighbor.neighborLeft != null && neighbor.neighborLeft.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborLeft);
-                selected = selectedAction;
-
-            }
-            else if (neighbor.neighborRight != null && neighbor.neighborRight.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborRight);
-                selected = selectedAction;
-
-            }
-        }
-        // JoyX Bottom
-        if (dir.y < 0)
-        {
-            if (neighbor.neighborBottom != null && neighbor.neighborBottom.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborBottom);
-                selected = selectedAction;
-            }
-            else if (neighbor.neighborRight != null && neighbor.neighborRight.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborRight);
-                selected = selectedAction;
-
-            }
-            else if (neighbor.neighborLeft != null && neighbor.neighborLeft.GetActive())
-            {
-                selectedAction = actions.IndexOf(neighbor.neighborLeft);
-                selected = selectedAction;
-            }
-        }
-
-        if (selected == selectedAction)
-            AudioManager.Play("select", Constants.UI2);
     }
-    public void Navigate(BattleUIActionOption next)
+    public void ChangeLableInTable(int x,int y, string nameToSetLable)
     {
-        if (next != null)
-        {
-            Vector2 dir = UserInput.GetDpad();
-            BattleUIActionOption n = next;
-            if (!n.GetActive() && allowsSkips)
-            {
-                NavigateSkip(n, dir);
-                return;
-            }
-            if (n.GetActive())
-            {
-                selectedAction = actions.IndexOf(n);
-                AudioManager.Play("select", Constants.UI2);
-
-            }
-        }
+        LabledTable[x, y] = nameToSetLable;
     }
     void Move()
     {
-        if (UserInput.GetDpad().magnitude < 0.1f)
+        Vector2 dir = UserInput.GetDpad();
+
+        dir.y *= -1;
+
+        tableLengthX = LabledTable.GetLength(0);
+        tableLengthY = LabledTable.GetLength(1);
+
+        if (dir.magnitude < 0.1f)
             moved = false;
 
         if (moved)
             return;
 
-        if (UserInput.GetDpad().magnitude > 0.1f)
-        {
-            Debug.Log("x " + UserInput.GetDpad().x + "y " +  UserInput.GetDpad().y);
+        if (dir.magnitude > 0.1f)
+        {                   
             moved = true;
-            if (UserInput.GetDpad().x > 0.5f)
-            {
-                Navigate(selected.neighborRight);
-            }
-            else if (UserInput.GetDpad().x < -0.5f)
-            {
-                Navigate(selected.neighborLeft);
-            }
-            else if (UserInput.GetDpad().y > 0.5f)
-            {
-                Navigate(selected.neighborTop);
-            }
-            else if (UserInput.GetDpad().y < -0.5f)
-            {
-                Navigate(selected.neighborBottom);
-            }
-            selected = actions[selectedAction];
-            OnSwitch(selectedAction);
 
-            for (int i = 0; i < actions.Count; i++)
+            int intiSelectionX = selectedActionX;
+            int intiSelectionY = selectedActionY;
+
+            MenuOption menuOption = null;
+
+
+            if (dir.x > 0.1f)
             {
-                if (i == selectedAction)
-                {
-                    actions[i].HighLight();
-                }
+                ChangeSelectionPosition(1, 0, false);
             }
+            else if (dir.x < -0.1f)
+            {
+                ChangeSelectionPosition(-1, 0, false);
+
+            }
+            else if(dir.y > 0.1f)
+            {
+                ChangeSelectionPosition(0, 1, false);
+
+            }
+            else if(dir.y < -0.1f)
+            {
+                ChangeSelectionPosition(0, -1, false);
+
+            }
+
+            menuOption = GetOptionInTable();
+
+            if (menuOption == null)
+            {
+                selectedActionX = intiSelectionX;
+                selectedActionY = intiSelectionY;
+
+                return;
+            }
+
+            if(menuNavigationSound) 
+                menuNavigationSound.Play();
+            selected = menuOption;
+            selected.HighLight();
         }
+    }
+
+    void SetSelectionPosition(int x, int y)
+    {
+        selectedActionX = x;
+        selectedActionY = y;
+    }
+    protected void SelectOptionInTable(int x, int y)
+    {
+        selectedActionX = x;
+        selectedActionY = y;
+
+        selected = transform.Find(LabledTable[selectedActionX, selectedActionY]).GetComponent<MenuOption>();
+    }
+
+    public void ChangeSelectionPosition(int xAmount, int yAmount, bool loop)
+    {
+        int intiSelectionX = selectedActionX;
+        int intiSelectionY = selectedActionY;
+
+        selectedActionY += yAmount;
+        selectedActionX+= xAmount;
+
+        if (loop)
+        {
+            if (selectedActionX >= tableLengthX)
+                selectedActionX = 0;
+
+            else if (selectedActionX < 0)
+                selectedActionX = tableLengthY - 1;
+
+            if (selectedActionY >= tableLengthY)
+                selectedActionY = 0;
+
+            else if (selectedActionY < 0)
+                selectedActionY = tableLengthY - 1;
+        }
+        else
+        {
+            if (selectedActionX >= tableLengthX)
+                selectedActionX = tableLengthX - 1;
+
+            else if (selectedActionX < 0)
+                selectedActionX = 0;
+
+            if (selectedActionY >= tableLengthY)
+                selectedActionY = tableLengthY - 1;
+
+            else if (selectedActionY < 0)
+                selectedActionY = 0;
+        }
+
+        string intable = LabledTable[selectedActionX, selectedActionY];
+
+        int counter = 1024;
+        bool arrow = intable == "←" || intable == "→" || intable == "↓" || intable == "↑";
+
+        while(arrow)
+        {
+            counter--;
+            if (counter < 0)
+            {
+                Debug.LogError("Infinte Loop Found");
+                break;
+            }
+
+            if (intable == "←") selectedActionX -= 1;
+            if (intable == "→") selectedActionX += 1;
+            if (intable == "↓") selectedActionY += 1;
+            if (intable == "↑") selectedActionY -= 1;
+
+            if (selectedActionX >= tableLengthX || selectedActionX < 0)
+                break;
+
+
+            if (selectedActionY >= tableLengthY || selectedActionY < 0)
+                break; 
+
+            intable = LabledTable[selectedActionX, selectedActionY];
+
+            if (intable == "←" || intable == "→" || intable == "↓" || intable == "↑")
+                continue;
+            else
+            {
+                break;
+            }
+            
+        }
+
+        
+
+        if (intable == "SKIP")
+        {
+            selectedActionY += yAmount;
+            selectedActionX += xAmount;
+        }
+
+        if (selectedActionX >= tableLengthX || selectedActionX < 0)
+            selectedActionX = intiSelectionX;
+
+
+        if (selectedActionY >= tableLengthY || selectedActionY < 0)
+            selectedActionY = intiSelectionY;
+
+
+    }
+    protected void SetActiveState(bool active)
+    {
+        if (!gameObjectToActivate)
+            gameObjectToActivate = gameObject;
+
+        gameObjectToActivate.SetActive(active);
+    }
+    protected MenuOption GetOptionInTable() //Using Selected Action Position
+    {
+        string find = LabledTable[selectedActionX, selectedActionY];
+
+        if(find == null || find == "")
+        {
+            return null;
+        }
+
+        MenuOption menuOption = transform.Find(find).GetComponent<MenuOption>();
+
+        if (menuOption == null)
+            return null;
+
+        if (menuOption.GetActive()) return menuOption;
+        else return null;
+    }
+    protected MenuOption GetOptionInTableAtPosition(int x, int y)
+    {
+        return transform.Find(LabledTable[x, y]).GetComponent<MenuOption>();
     }
     protected virtual void OnSwitch(int index)
     {

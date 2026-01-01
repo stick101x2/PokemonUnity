@@ -399,10 +399,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  neighborTop: {fileID: 629500280}
-  neighborLeft: {fileID: 0}
-  neighborRight: {fileID: 0}
-  neighborBottom: {fileID: 177648248}
   text: {fileID: 45164097}
   button: {fileID: 0}
 --- !u!1 &177648242
@@ -647,10 +643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  neighborTop: {fileID: 45164101}
-  neighborLeft: {fileID: 0}
-  neighborRight: {fileID: 0}
-  neighborBottom: {fileID: 0}
   text: {fileID: 177648244}
   button: {fileID: 0}
 --- !u!1 &198129634
@@ -665,6 +657,7 @@ GameObject:
   - component: {fileID: 198129638}
   - component: {fileID: 198129637}
   - component: {fileID: 198129636}
+  - component: {fileID: 198129639}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -756,6 +749,27 @@ Canvas:
   m_SortingLayerID: -1476124237
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &198129639
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198129634}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &244309454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -986,7 +1000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351140127929787179, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Reserve 1 (4)
+      value: Reserve 5
       objectReference: {fileID: 0}
     - target: {fileID: 8521512403015470900, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1331,7 +1345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351140127929787179, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Reserve 1 (3)
+      value: Reserve 4
       objectReference: {fileID: 0}
     - target: {fileID: 8521512403015470900, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2075,10 +2089,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  neighborTop: {fileID: 1393937525}
-  neighborLeft: {fileID: 0}
-  neighborRight: {fileID: 0}
-  neighborBottom: {fileID: 45164101}
   text: {fileID: 629500276}
   button: {fileID: 0}
 --- !u!1 &745951250
@@ -2455,17 +2465,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b82eb5941d15b645a19fc25385aab07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowsSkips: 0
-  items:
-  - {fileID: 1393937520}
-  - {fileID: 629500275}
-  - {fileID: 45164096}
-  - {fileID: 177648243}
-  actions:
-  - {fileID: 1393937525}
-  - {fileID: 629500280}
-  - {fileID: 45164101}
-  - {fileID: 177648248}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: LabledTable
+      Entry: 6
+      Data: 
+  items: []
+  actions: []
+  gameObjectToActivate: {fileID: 0}
 --- !u!1001 &955636415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2563,6 +2577,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
+      propertyPath: testPlayer.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
       propertyPath: testPlayer.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: ad4d3b4898576f6438793b14ba54c457, type: 2}
@@ -2572,6 +2590,14 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
     - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
       propertyPath: testPlayer.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
+    - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
+      propertyPath: testPlayer.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
+    - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
+      propertyPath: testPlayer.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
     - target: {fileID: 3463182810778669606, guid: 9f4973b740d216d468718431b4242925, type: 3}
@@ -3043,7 +3069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351140127929787179, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Reserve 1 (1)
+      value: Reserve 2
       objectReference: {fileID: 0}
     - target: {fileID: 8521512403015470900, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3147,24 +3173,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44586efca46f834796f7605c6de4072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowsSkips: 1
-  items:
-  - {fileID: 1047601863}
-  - {fileID: 7692460625630515178}
-  - {fileID: 1036789866}
-  - {fileID: 2085818620}
-  - {fileID: 297350864}
-  - {fileID: 244309455}
-  - {fileID: 1281566822}
-  actions:
-  - {fileID: 1047601865}
-  - {fileID: 7692460625630515180}
-  - {fileID: 1631416081}
-  - {fileID: 2085818622}
-  - {fileID: 568756766}
-  - {fileID: 531277868}
-  - {fileID: 1648251642}
-  animateEvery: 12
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: LabledTable
+      Entry: 7
+      Data: 0|System.String[,], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 10
+    - Name: ranks
+      Entry: 1
+      Data: 2|5
+    - Name: 
+      Entry: 1
+      Data: Slot 0
+    - Name: 
+      Entry: 1
+      Data: "\u2191"
+    - Name: 
+      Entry: 1
+      Data: Slot 1
+    - Name: 
+      Entry: 1
+      Data: "\u2191"
+    - Name: 
+      Entry: 1
+      Data: "\u2191"
+    - Name: 
+      Entry: 1
+      Data: Reserve 1
+    - Name: 
+      Entry: 1
+      Data: Reserve 2
+    - Name: 
+      Entry: 1
+      Data: Reserve 3
+    - Name: 
+      Entry: 1
+      Data: Reserve 4
+    - Name: 
+      Entry: 1
+      Data: Reserve 5
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  items: []
+  actions: []
+  gameObjectToActivate: {fileID: 0}
+  animateEvery: 4
 --- !u!114 &1168552555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,7 +3420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2774972380743373173, guid: 8edad77cb12915b4e960452fecd98da5, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Out 2
+      value: Slot 1
       objectReference: {fileID: 0}
     - target: {fileID: 8710042700768946613, guid: 8edad77cb12915b4e960452fecd98da5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3684,10 +3750,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  neighborTop: {fileID: 0}
-  neighborLeft: {fileID: 0}
-  neighborRight: {fileID: 0}
-  neighborBottom: {fileID: 629500280}
   text: {fileID: 1393937521}
   button: {fileID: 0}
 --- !u!1 &1427515622
@@ -4712,7 +4774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351140127929787179, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Reserve 1 (2)
+      value: Reserve 3
       objectReference: {fileID: 0}
     - target: {fileID: 8521512403015470900, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4857,7 +4919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2774972380743373173, guid: 8edad77cb12915b4e960452fecd98da5, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Out 1
+      value: Slot 0
       objectReference: {fileID: 0}
     - target: {fileID: 8710042700768946613, guid: 8edad77cb12915b4e960452fecd98da5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -5102,8 +5164,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351140127929787179, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
       propertyPath: m_Name
-      value: Pokemon UI Reserve 1
+      value: Reserve 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8472387088019510333, guid: fc99c8482d031744eb79a3ded6e80f68, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2048018104, guid: b2bb7c86a69b11448a7792b78c609145, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -9,6 +9,12 @@ public class MoveGrowl : MoveBase
         offense.Animate("growl");
         AudioManager.Play(offense.pokemon.Data().Cry, Constants.POKE);
         yield return new WaitForSeconds(1f);
-        yield return base.Act(manager, move, offense, defense);
+        AudioManager.Play("status_down", Constants.MISC1);
+        defense.SetStatusSprite(manager.GetStatusEffect());
+        defense.Animate("status_down");
+        defense.ChangeAttackModifier(-1);
+        yield return new WaitForSeconds(1.3f);
+
+        yield return NothingHappened(manager, move);
     }
 }

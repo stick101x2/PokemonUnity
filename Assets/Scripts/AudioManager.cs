@@ -146,6 +146,12 @@ public class AudioManager : MonoBehaviour
     public static SoundSource Play(Sound s, int index)
     {
         SoundSource source = instance.soundSources[index];
+
+        if(index == Constants.POKE)
+        {
+            instance.soundSources[0].SetVolume(0.4f,1f,s.clip.length+0.25f);
+        }
+
         source.Play(s);
         return source;
     }
@@ -176,12 +182,16 @@ public class Sound
 }
 public class SoundSource : MonoBehaviour
 {
-    AudioSource source;
-    Sound sound;
-    int loopStartSamples;
-    int loopEndSamples;
-    int loopLengthSamples;
-    int timeSamples;
+    [SerializeField] AudioSource source;
+    [SerializeField] Sound sound;
+    [SerializeField] int loopStartSamples;
+    [SerializeField] int loopEndSamples;
+    [SerializeField] int loopLengthSamples;
+    [SerializeField] int timeSamples;
+
+    [SerializeField] float volume;
+    [SerializeField] float volumeChangeSpeed;
+    [SerializeField] float duration = -1000;
     public void Setup()
     {
         source = gameObject.AddComponent<AudioSource>();
@@ -191,6 +201,49 @@ public class SoundSource : MonoBehaviour
     public void Update()
     {
 
+        if(duration > 0)
+        {
+            duration -= Time.deltaTime;
+            if(duration < 0 )
+            {
+                volume = sound.volume;
+            }
+        }
+
+        VolumeChange();
+
+        Looping();
+    }
+
+    public void SetVolume(float setVolume,float setChangeSpeed = 1f,float setDuration = -1000)
+    {
+        volumeChangeSpeed = setChangeSpeed;
+        duration = setDuration; 
+        volume = setVolume;
+    }
+
+    void VolumeChange()
+    {
+        if (volume == source.volume)
+            return;
+
+       
+
+        float dir = volume > source.volume ? 1f : -1f;
+
+        source.volume += volumeChangeSpeed * dir * Time.deltaTime;
+
+        if(dir > 0 && (source.volume > volume || source.volume == volume))
+        {
+            source.volume = volume;
+        }
+        else if (dir < 0 && (source.volume < volume || source.volume == volume))
+        {
+            source.volume = volume;
+        }
+    }
+    void Looping()
+    {
         if (sound.loopStart < 0 || sound.loopEnd < 0)
             return;
 
@@ -223,6 +276,8 @@ public class SoundSource : MonoBehaviour
         loopStartSamples = (int)(s.loopStart * s.clip.frequency);
         loopEndSamples = (int)(s.loopEnd * s.clip.frequency);
         loopLengthSamples = loopEndSamples - loopStartSamples;
+
+        volume = sound.volume;
 
         source.volume = sound.volume;
         source.pitch = sound.pitch;

@@ -48,16 +48,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a3e74574e3cc54db20ab34cfa0d98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Debug: 0
+  debugging: 0
   currentScene: 0
+  currentArea: {fileID: 0}
   WorldMusic: {fileID: 11400000, guid: 4c415f221ccebfa45b87036b425925b8, type: 2}
-  BattleMusic: {fileID: 11400000, guid: 3e87bda5ee493c94594833ac1c30268d, type: 2}
+  BattleMusic: {fileID: 11400000, guid: c4124e518a682b84d9d1f4849ceb14c5, type: 2}
   playerPokemons: []
   enemyPokemons: []
   currentActivePokemon: 0
-  testEnemy: {fileID: 11400000, guid: ad4d3b4898576f6438793b14ba54c457, type: 2}
-  TestEnemyLVL: 5
-  testPlayer: {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
+  testPlayer:
+  - {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
+  - {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
+  - {fileID: 11400000, guid: f3954f7a07ce5a9408ffff54c87c0418, type: 2}
+  - {fileID: 11400000, guid: ad4d3b4898576f6438793b14ba54c457, type: 2}
+  - {fileID: 11400000, guid: ad4d3b4898576f6438793b14ba54c457, type: 2}
+  - {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
+  - {fileID: 11400000, guid: 11eea48e8b1aaa6468ec5b1a7c300820, type: 2}
   TestPlayerLVL: 5
 --- !u!1 &4814972660204143186
 GameObject:

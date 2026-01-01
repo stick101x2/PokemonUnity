@@ -14,6 +14,7 @@ public class MoveBase : ScriptableObject
     [SerializeField] int power;
     [SerializeField] int accuracy;
     [SerializeField] int pp;
+    [SerializeField] int priorty;
 
     public string Name { get { return name; } }
     public string Description { get { return description; } }
@@ -26,13 +27,7 @@ public class MoveBase : ScriptableObject
 
     public virtual IEnumerator Act(BattleManager manager,Move move, BattleUnit offense, BattleUnit defense)
     {
-        if(move.Base.Power <= 0)
-        {
-            yield return new WaitForSeconds(0.25f);
-            yield return manager.Messenger.TypeDialog("Nothing Happend!");
-            yield return new WaitForSeconds(0.25f);
-            yield break;
-        }
+        
 
 
         manager.damagedInfo = defense.DealDamage(move, offense.pokemon.Data());
@@ -46,15 +41,21 @@ public class MoveBase : ScriptableObject
         yield return new WaitForSeconds(0.5f);
         defense.UpdateHPBar(defense.pokemon.Data().HP);
         yield return defense.HPDrain();
-        if (info.fainted)
-        {
-            AudioManager.Play(defense.pokemon.Data().Cry, Constants.POKE, 0.8f);
-        }
         defense.Animate("wait");
         yield return ShowEffecitveMessage(manager, info);
 
     }
    
+    public IEnumerator NothingHappened(BattleManager manager, Move move)
+    {
+        if (move.Base.Power <= 0)
+        {
+            yield return new WaitForSeconds(0.25f);
+            yield return manager.Messenger.TypeDialog("Nothing Happend!");
+            yield return new WaitForSeconds(0.25f);
+            yield break;
+        }
+    }
     protected IEnumerator ShowEffecitveMessage(BattleManager manager,Damage info)
     {
         if (info.effective <= 0)

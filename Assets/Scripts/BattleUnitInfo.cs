@@ -11,6 +11,13 @@ public class BattleUnitInfo : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI p_name;
     [SerializeField] TextMeshProUGUI lvl;
+    [SerializeField] Image genderIcon;
+    [Space(5)]
+    [SerializeField] GameObject bgFull;
+    [SerializeField] GameObject bgSmall;
+    [SerializeField] GameObject extra;
+
+
 
     Animator anim;
     int anim_idle = Animator.StringToHash("idle");
@@ -18,24 +25,44 @@ public class BattleUnitInfo : MonoBehaviour
     int anim_damage = Animator.StringToHash("damage");
     int anim_faint = Animator.StringToHash("faint");
 
-    
 
+    bool showAllinfo = true;
     private void Awake()
     {
         hpbar = GetComponentInChildren<HPBar>();
         anim = GetComponent<Animator>();
     }
+    private void Update()
+    {
+        if(UnityEngine.Input.GetKeyDown(KeyCode.R))
+        {
+            showAllinfo = !showAllinfo;
+            ShowAllInfo(showAllinfo);
+        }
+    }
+    public void ShowAllInfo(bool show)
+    {
+        if (bgFull == null || bgSmall == null || extra == null)
+            return;
 
-    public void SetData(Pokemon pokemonData)
+        if(show)
+        {
+            extra.SetActive(true);
+            bgFull.SetActive(true);
+            bgSmall.SetActive(false);
+            return;
+        }
+        extra.SetActive(false);
+        bgFull.SetActive(false);
+        bgSmall.SetActive(true);
+    }
+    public void SetData(Pokemon pokemonData,BattleManager battleManager)
     {
         hpbar.Setup(pokemonData.MaxHP, pokemonData.HP);
-        string gender = "";
-        if (pokemonData.Gender == 0)
-            gender = Constants.MALE;
-        else if (pokemonData.Gender == 1)
-            gender = Constants.FEMALE;
-        p_name.text = pokemonData.Name.ToUpper() + gender;
-        lvl.text = "_" + pokemonData.Level;
+
+        genderIcon.sprite = battleManager.GetGenderIcon(pokemonData.Gender);
+        p_name.text = pokemonData.Name;
+        lvl.text = ""+ pokemonData.Level;
     }
     public void AnimEnter(bool player)
     {

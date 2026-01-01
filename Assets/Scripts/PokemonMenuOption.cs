@@ -7,14 +7,16 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-public class PokemonMenuOption : BattleUIActionOption
+public class PokemonMenuOption : MenuOption
 {
-    Pokemon poke;
-    HPBar hpbar;
+
     [SerializeField] TextMeshProUGUI pokemonName;
     [SerializeField] TextMeshProUGUI lvl;
     [SerializeField] TextMeshProUGUI gender;
     [SerializeField] Image icon;
+
+    Pokemon poke;
+    HPBar hpbar;
     Transform box;
     Sprite[] icons;
     Vector2[] positions = new Vector2[2];
@@ -43,7 +45,7 @@ public class PokemonMenuOption : BattleUIActionOption
             gender = Constants.MALE;
         else if (pokemonData.Gender == 1)
             gender = Constants.FEMALE;
-        pokemonName.text = pokemonData.Name.ToUpper();
+        pokemonName.text = pokemonData.Name;
         this.gender.text = gender;
         lvl.text = "_" + pokemonData.Level;
 

@@ -10,14 +10,17 @@ public class DialogBox : MonoBehaviour
     [Range(1,120)]
     [SerializeField] int lettersPerSecond = 1;
 
-    string sampleText = "Sample Text";
-    public Vector2 textPos;
-    public GameObject cursor;
+    [SerializeField] string sampleText = "Sample Text";
+    [SerializeField] Vector2 textPos;
+    [SerializeField] GameObject cursor;
+
     // Start is called before the first frame update
     public void SetDialog(string dialog)
     {
         textbox.text = dialog;
     }
+
+
     public void InstantDialog(string dialog, float delay = 0f)
     {
         StopAllCoroutines();

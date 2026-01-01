@@ -10,12 +10,14 @@ public class BattleMoveMenu : BattleUIActions
 
     public override void Open()
     {
+        transform.parent.gameObject.SetActive(true);
         base.Open();
         InfoTextReset();
         SetMoves();
     }
     public override void Close()
     {
+        transform.parent.gameObject.SetActive(false);
         base.Close();
         ResetMoves();
         InfoTextReset();
@@ -62,25 +64,34 @@ public class BattleMoveMenu : BattleUIActions
     }
     void ResetMoves()
     {
-        for (int i = 1; i < actions.Count; i++)
+        for (int i = 0; i < actions.Count; i++)
         {
+            if (actions[i].gameObject.name == "BACK")
+                continue;
             BattleMoveOption moveOption = actions[i] as BattleMoveOption;
             moveOption.ResetOption();
         }
     }
     void SetMoves()
     {
-        for (int i = 1; i < actions.Count; i++)
+        for (int i = 0; i < actions.Count; i++)
         {
-            
-            BattleMoveOption moveOption = actions[i] as BattleMoveOption;
-            if (i > player.pokemon.Data().Moves.Count)
+            if (actions[i].gameObject.name == "BACK")
             {
+                actions[i].SetActive(true, true);
+                continue;
+            }
+
+            BattleMoveOption moveOption = actions[i] as BattleMoveOption;
+            if (i >= player.pokemon.Data().Moves.Count)
+            {
+                ChangeLableInTable(actions[i].gameObject.name, "SKIP");
+                actions[i].gameObject.name = "SKIP";
                 actions[i].SetActive(false, true);
                 continue;
             }
             actions[i].SetActive(true, true);
-            moveOption.Setup(player.pokemon.Data().Moves[i - 1], i - 1);
+            moveOption.Setup(player.pokemon.Data().Moves[i], i);
         }
     }
 

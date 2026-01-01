@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,15 +41,16 @@ public class Player_Map : MonoBehaviour
     {
         Animation();
     }
-    
     public void Movement()
     {
-        if (!canMove)
-            return;
+        Vector2 dpad = UserInput.GetDpad();
+
+        if(!canMove || GameManager.inMenu)
+            dpad = Vector2.zero;
+
         if (resetMoveTimer < RESET_MOVE_DELAY)
             resetMoveTimer += Time.deltaTime;
         atWall = false;
-        Vector2 dpad = UserInput.GetDpad();
         if(dpad.magnitude < 0.2f) // 0f if no input is pressed otherwise 1f
         {
             canMoveTimer = CAN_MOVE_DELAY;

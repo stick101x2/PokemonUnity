@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +24,8 @@ public class PokemonMenu : Menu
                     menuOptions[i].Setup(GameManager.instance.playerPokemons[i].Data(),true);
                 }else
                 {
+                    ChangeLableInTable(menuOptions[i].gameObject.name, "↑");
+                    menuOptions[i].gameObject.name = "↑";
                     menuOptions[i].Setup(null, false);
 
                 }
@@ -31,7 +33,7 @@ public class PokemonMenu : Menu
             }
         }
     }
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         frame++;
         if(frame % animateEvery == 0)

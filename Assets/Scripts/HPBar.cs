@@ -10,7 +10,8 @@ public class HPBar : MonoBehaviour
     [SerializeField] float changeSpeed = 1;
 
     [SerializeField] Image hpbar;
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI minHp;
+    [SerializeField] TextMeshProUGUI maxHp;
 
     [SerializeField] Sprite green;
     [SerializeField] Sprite yellow;
@@ -32,8 +33,6 @@ public class HPBar : MonoBehaviour
     void Awake()
     {
         hpbar = GetComponent<Image>();
-        if(!text)
-        text = GetComponentInChildren<TextMeshProUGUI>();
         enabled = false;
     }
     public void Setup(int MaxHP, int currentHP)
@@ -133,11 +132,10 @@ public class HPBar : MonoBehaviour
         return value;
         
     }
-    void SetText(int value)
+    void SetText(int current)
     {
-        if (text == null)
-            return;
-        text.text = "" + value + "/" + max;
+        minHp.text = "" + current;
+        maxHp.text = "" + max;
     }
     void HPChangeEnd()
     {

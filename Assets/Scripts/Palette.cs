@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.U2D;
 
-[CreateAssetMenu(fileName = "Palette", menuName = "MMX/Palette")]
+[CreateAssetMenu(fileName = "Palette", menuName = "PokemonUE/Palette")]
 public class Palette : ScriptableObject
 {
     [InlineButton("GetColors")]
